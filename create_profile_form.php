@@ -30,9 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   $raw_birth_year = $_POST["birth_year"];
-  $options = ["minimum_value" => 1930, "maximum_value" => date("Y")];
-  if(filter_var($raw_birth_year)){
-
+  $options = ["options" => ["min_range" => 1900, "max_range" => date("Y")]];
+  if(filter_var($raw_birth_year, FILTER_VALIDATE_INT, $options)){
+      $birth_year = $raw_birth_year;
+  } else {
+    $validation_error .= "Invalid year. <br>";
   }
 }
 ?>
